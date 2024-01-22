@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy to Clipboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #myDiv {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap; /* Preserve line breaks and spaces */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #notification {
+            display: none;
+            background-color: #f2f2f2;
+            color: #333;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Copy to Clipboard</h2>
+
+    <div id="myDiv">This is some text in a div.</div>
+
+    <br>
+    <button onclick="copyToClipboard()">Copy Text</button>
+
+    <div id="notification"></div>
+
+    <script>
+        function copyToClipboard() {
+            // Create a range and select the text inside the div
+            var range = document.createRange();
+            range.selectNode(document.getElementById("myDiv"));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            // Copy the selected text to the clipboard
+            document.execCommand('copy');
+
+            // Deselect the text
+            window.getSelection().removeAllRanges();
+
+            // Display a custom notification
+            var notification = document.getElementById("notification");
+            notification.innerHTML = "Text copied to clipboard!";
+            notification.style.display = "block";
+
+            // Hide the notification after a short delay (you can customize the delay)
+            setTimeout(function () {
+                notification.style.display = "none";
+            }, 2000); // 2000 milliseconds (2 seconds)
+        }
+    </script>
+</body>
+</html>
